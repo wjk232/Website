@@ -31,8 +31,8 @@ class AuthenticateController extends Controller
             ]); 
 		}else{
 			return response()->json([
-            'code' => 400,
-            'message' => 'Signin failed'
+                'code' => 400,
+                'message' => 'Signin failed'
             ]);
 		}
 	}
