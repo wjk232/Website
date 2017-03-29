@@ -17,7 +17,10 @@ class AuthenticateController extends Controller
 		if (Auth::attempt($request->only('username', 'password'), true)){
             //Update clientID
             User::where('username',$request->input('username') )
-                  ->update(array('clientID' => $request->input('clientID')));
+                ->update(array(
+                    'clientID' => $request->input('clientID'),
+                    'status' => 'online'
+                ));
 
             $user = User::where('username', '=', $request->input('username'))->first();
             return response()->json([
@@ -32,5 +35,20 @@ class AuthenticateController extends Controller
             'message' => 'Signin failed'
             ]);
 		}
+	}
+    
+    /**
+    * User logout method
+    */
+	public function logout(){
+        //Update status
+        User::where('username',request()->input('username'))
+            ->update(array('status' => 'offline'));
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'You have logout successfully.'
+        ]); 
+
 	}
 }

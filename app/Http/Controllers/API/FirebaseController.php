@@ -69,7 +69,7 @@ class FirebaseController extends Controller
         $url = 'https://fcm.googleapis.com/fcm/send';
         DB::reconnect();
 
-        if($user['clientID'] == 'server'){
+        if($user['clientID'] == 'server' || $user['status'] == 'offline'){
             //user not in an app
             return response()->json([
                 'code' => 400,

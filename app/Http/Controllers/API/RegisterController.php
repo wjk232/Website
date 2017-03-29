@@ -18,22 +18,22 @@ class RegisterController extends Controller
      * This function creates a new user and redirects them to login. 
      */
     public function register(Request $request){
-
+        //Validate input
         $validation = Validator::make($request->all(),[
             'username' =>' required|unique:users', 
             'password' => 'required',
         ]);
-
+        //Return error if input needed
         if($validation->fails()){
             return response()->json([
                 'code' => 400,
                 'message' => 'Failed: Username already exist.']
             );
         }
-    
         //Create new user
         try{
             $user = User::create([
+                'status' => 'offline',
                 'password'	=> bcrypt($request->input('password')),
                 'username' => $request->input('username'),
                 'profile_pic' => $request->input('profile_pic'),
