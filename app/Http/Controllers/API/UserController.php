@@ -58,7 +58,7 @@ class UserController extends Controller
             ]); 
         }
 
-        $user = User::where('id', '=', $id)->first();
+        $user = User::where('username', '=', $username)->first();
         return response()->json([
             'code' => 200,
             'message' => 'Profile update successfully.',
