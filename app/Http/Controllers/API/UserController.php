@@ -49,7 +49,8 @@ class UserController extends Controller
         try{
             User::where('username','=',$username)
                 ->update(array('profile_pic' => $request->input('profile_pic')));
-                
+            User::where('username','=',$username)
+                ->update(array('location' => $request->input('location')));
         }catch(Exception $e){
          //Errors Log 
          return response()->json([
