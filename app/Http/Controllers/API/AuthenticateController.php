@@ -10,7 +10,8 @@ use App\User;
 class AuthenticateController extends Controller
 {
     /**
-    * 
+    * User login method
+    * This method returns a token for user to request info
     */
 	public function login(Request $request){
 		if (Auth::attempt($request->only('username', 'password'), true)){

@@ -24,14 +24,14 @@ class UserController extends Controller
     /**
     * Display the specified resource.
     *
-    * @param  int  $id
+    * @param  String  $username
     * @return \Illuminate\Http\Response
     */
-    public function show($id)
+    public function show($username)
     {
         
         return response()->json(
-            User::where('id','=',$id)
+            User::where('username','=',$username)
                 ->first()
         );
     }
@@ -40,14 +40,14 @@ class UserController extends Controller
     * Update the specified resource in storage.
     *
     * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
+    * @param  String  $username
     * @return \Illuminate\Http\Response
     */
-    public function update(Request $request, $id)
+    public function update(Request $request, $username)
     {
         //Update user profile
         try{
-            User::where('id','=',$id)
+            User::where('username','=',$username)
                 ->update(array('profile_pic' => $request->input('profile_pic')));
                 
         }catch(Exception $e){
@@ -69,10 +69,10 @@ class UserController extends Controller
     /**
     * Remove the specified resource from storage.
     *
-    * @param  int  $id
+    * @param  String  $username
     * @return \Illuminate\Http\Response
     */
-    public function destroy($id)
+    public function destroy($username)
     {
     //
     }
