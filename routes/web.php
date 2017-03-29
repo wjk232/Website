@@ -15,4 +15,5 @@ Route::get('/', 'HomeController@showProfile');
 Route::get('/chat/{chatname}', 'HomeController@showChat');
 Route::get('/logout', 'HomeController@logout');
 Route::get('/messageschat/{chatname}', 'HomeController@messagesForChat');
-Route::post('/chat/register', 'HomeController@loginRegister');
+Route::post('/chat/login', 'HomeController@login');
+Route::post('/chat/register', 'HomeController@register');

@@ -67,7 +67,35 @@
                                     <a id="logIn" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Login
                                     <span class="caret"></span></a>
                                     <ul class="dropdown-menu" style="width: 250px">
-                                        {{Form::open([ 'action' => 'HomeController@loginRegister', 'method' => 'POST'])}}
+                                        {{Form::open([ 'action' => 'HomeController@login', 'method' => 'POST'])}}
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Username:</label>
+                                            <div class="col-sm-11 ">
+                                            {{ Form::text('username', null, [ 'placeholder' => 'Username', 
+                                            'class' => 'form-control', 'required']) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Password:</label>
+                                            <div class="col-sm-11">
+                                            {{ Form::password("password" , [ 'placeholder' => 'Password',
+                                            'class' => 'form-control', 'required'])}}
+                                            </div>	
+                                        </div>	
+                                        <div class="form-group" id="form" >
+                                            <div class="col-sm-offset-5 col-sm-11 " style="margin-top:20px">
+                                            {{ Form:: submit('Login',
+                                            ['class' => 'col-md-6 col-sm-offset-2 btn btn-success button','style'=>'width:auto']) }}
+                                            </div>
+                                        </div>
+                                        {{Form::close()}}
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a id="register" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Register
+                                    <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" style="width: 250px">
+                                        {{Form::open([ 'action' => 'HomeController@register', 'method' => 'POST'])}}
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Username:</label>
                                             <div class="col-sm-11 ">
@@ -85,14 +113,14 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Location:</label>
                                             <div class="col-sm-11 ">
-                                            {{ Form::text('location', 'San Antonio,Texas', [ 'style'=>'color:#a89f9c', 
+                                            {{ Form::text('location',null, [ 'placeholder' => 'San Antonio,Texas','style'=>'color:#a89f9c', 
                                             'class' => 'form-control', 'required']) }}
                                             </div>
                                         </div>
                                         <div class="form-group" id="form" >
                                             <div class="col-sm-offset-5 col-sm-11 " style="margin-top:20px">
-                                            {{ Form:: submit('Login/Register',
-                                            ['class' => 'col-md-6 btn btn-warning btn-sm button','style'=>'width:auto']) }}
+                                            {{ Form:: submit('Register',
+                                            ['class' => 'col-md-6 col-sm-offset-1 btn btn-success button','style'=>'width:auto']) }}
                                             </div>
                                         </div>
                                         {{Form::close()}}

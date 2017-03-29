@@ -39,12 +39,53 @@ class HomeController extends Controller
     * Login user in website chatroom
     * return session message
     */
-    public function loginRegister(Request $request){
+    public function login(Request $request){
+        //Validating input
+        $validation = Validator::make($request->all(),[
+            'username' =>' required', 
+            'password' => 'required'
+        ]);
+        //Return error if input needed
+        if($validation->fails()){
+            $messages = $validation->messages();
+            Session::flash('validation_messages', $messages);
+            return Redirect::back()->withInput();
+        }
+        //Initilizing var
+        $password = $request->input('password');
+        $username = ucfirst($request->input('username'));
+
+        //Check if user is registered and try to login
+        if (Auth::attempt($request->only('username', 'password'), true)){
+            //Update clientID
+            User::where('username',$username )
+                ->update(array('clientID' => 'server'));
+               
+            Session::flash('message', 'You have signin successfully.');
+            return redirect('/chat/nearme/');
+        }
+        
+        Session::flash('message', 'Wrong password.');
+        return Redirect::back()->withInput();
+    }
+
+   /**
+    * Register user
+    * return session message
+    */
+    public function register(Request $request){
+        //Validate input
         $validation = Validator::make($request->all(),[
             'username' =>' required|unique:users', 
             'password' => 'required',
             'location' => 'required'
         ]);
+        //Return error if input needed
+        if($validation->fails()){
+            $messages = $validation->messages();
+            Session::flash('validation_messages', $messages);
+            return Redirect::back()->withInput();
+        }
         //Initilizing var
         $password = $request->input('password');
         $username = ucfirst($request->input('username'));
@@ -65,63 +106,38 @@ class HomeController extends Controller
 
         //Geting address from json response
         foreach($address_component as $component){
-        $types = $component->types;
-        foreach($types as $type){
-            if($type == 'locality'){
-                $location .= $component->long_name . ',';
-            }
-            if($type == 'administrative_area_level_1'){
-                $location .= $component->long_name . ' ';   
-            }
-            if($type == 'country'){
-                $location .= $component->short_name; 
+            $types = $component->types;
+            foreach($types as $type){
+                if($type == 'locality'){
+                    $location .= $component->long_name . ',';
+                }
+                if($type == 'administrative_area_level_1'){
+                    $location .= $component->long_name . ' ';   
+                }
+                if($type == 'country'){
+                    $location .= $component->short_name; 
+                }
             }
         }
-        }
+        //Create new user
+        try{
+            User::create([
+                'password'	=> bcrypt($password),
+                'username' => ucfirst($username),
+                'api_token' => str_random(120),
+                'profile_pic' => 'none',
+                'location' => $location,
+                'clientID' => 'server'
+            ]);
 
-        //Check if user is registered and try to login
-        if (Auth::attempt($request->only('username', 'password'), true)){
-            //Update location
-            User::where('username',$username )
-                ->update(array('location' => $location));
-            User::where('username',$username )
-                ->update(array('clientID' => 'server'));
-               
-            Session::flash('message', 'You have signin successfully.');
-            return redirect('/chat/nearme/');
-        }else{         
-            //Check if user is available to register
-            if($validation->fails()){
-                $messages = $validation->messages();
-                Session::flash('validation_messages', $messages);
-                return Redirect::back()->withInput();
-            }
-           
-            //Create new user
-            try{
-                User::create([
-                    'password'	=> bcrypt($password),
-                    'username' => ucfirst($username),
-                    'api_token' => str_random(120),
-                    'profile_pic' => 'none',
-                    'location' => $location,
-                    'clientID' => 'server'
-                ]);
-
-            }catch(Exception $e){
-                //Errors Log 
-                Session::flash('message', $e->getMessage());
-                return Redirect::back()->withInput(); 
-            }
-            Session::flash('message', 'Registered successfully');
-            return Redirect::back();
+        }catch(Exception $e){
+            //Errors Log 
+            Session::flash('message', $e->getMessage());
+            return Redirect::back()->withInput(); 
         }
-        
-        Session::flash('message', 'Login/Register failed.');
+        Session::flash('message', 'Registered successfully');
         return Redirect::back();
     }
-
-   
     /*
     * Returns messages from chatroom 
     * nearme or region   

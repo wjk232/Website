@@ -34,7 +34,7 @@
                   {{ Form::hidden('chatname', $chatname) }}
                     {{Form::hidden('api_token', Auth::user()->api_token)}}
                   <span class="input-group-btn" >
-                     {{ Form:: submit('Send',['id'=>'sendM','class' => 'btn btn-warning btn-sm button']) }}  
+                     {{ Form:: submit('Send',['id'=>'sendM','class' => 'btn btn-success button']) }}  
                   </span>
                </div>
                {{Form::close()}}
