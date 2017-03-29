@@ -13,16 +13,16 @@ use Hash;
 class RegisterController extends Controller
 {
     /* 
-	 * register(): Register form on the sign up view POSTS
-	 * to this function. 
-	 * This function creates a new user and redirects them to login. 
-	 */
-	public function register(Request $request){
+     * register(): Register form on the sign up view POSTS
+     * to this function. 
+     * This function creates a new user and redirects them to login. 
+     */
+    public function register(Request $request){
 
-		$validation = Validator::make($request->all(),[
-			'username' =>' required|unique:users', 
-			'password' => 'required',
-		]);
+        $validation = Validator::make($request->all(),[
+            'username' =>' required|unique:users', 
+            'password' => 'required',
+        ]);
 
         if($validation->fails()){
             return response()->json([
@@ -56,5 +56,5 @@ class RegisterController extends Controller
             'user' => $user
         ]);    
 
-	}   
+    }   
 }
