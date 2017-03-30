@@ -49,6 +49,5 @@ class AuthenticateController extends Controller
             'code' => 200,
             'message' => 'You have logout successfully.'
         ]); 
-
 	}
 }

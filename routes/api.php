@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('messages','API\MessageController',['only' => [
     'index', 'show']]);
     
-    Route::post('/logout','API\AuthenticateController@logout')->name('logout');
+    Route::get('/logout','API\AuthenticateController@logout')->name('logout');
     
     //Firebase API request
     Route::get('/firebase/notify', 'API\FirebaseController@notifyChanges')->name('firebase.notify');
