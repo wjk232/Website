@@ -98,7 +98,7 @@ class HomeController extends Controller
             $address .= $_location . '+';
         }
         //For getting the address from location input
-        $url = "http://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=" . env('GOOGLEKEY');
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=" . env('GOOGLEKEY');
         $json = file_get_contents($url);
         $response = json_decode($json);
         $address_component = $response->results[0]->address_components;
