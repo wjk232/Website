@@ -122,6 +122,7 @@ class HomeController extends Controller
         //Create new user
         try{
             User::create([
+                'status' => 'offline',
                 'password'	=> bcrypt($password),
                 'username' => ucfirst($username),
                 'api_token' => str_random(120),
