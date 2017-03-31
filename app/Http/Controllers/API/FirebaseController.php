@@ -61,15 +61,16 @@ class FirebaseController extends Controller
    *
    */
    public function sendUserMessage(Request $request){
+        DB::reconnect();
         $key = env('FIREBASEKEY');
         $username = $request->input('username');
         $usernameTo =$request->input('usernameTo');
         $message = $request->input('message');
-        $user = User::where('username', '=', $usernameTo)->first();
+        $userTo = User::where('username', '=', $usernameTo)->first();
+        $user = User::where('username', '=', $username)->first();
         $url = 'https://fcm.googleapis.com/fcm/send';
-        DB::reconnect();
 
-        if($user['clientID'] == 'server' || $user['status'] == 'offline'){
+        if($userTo['clientID'] == 'server' || $userTo['status'] == 'offline'){
             //user not in an app
             return response()->json([
                 'code' => 400,
@@ -79,7 +80,7 @@ class FirebaseController extends Controller
         }
       
         $data =  array(
-            'to' => $user['clientID'],
+            'to' => $userTo['clientID'],
             'data' => array(
                         'type' => 'user',
                         'id' => $user['id'],
