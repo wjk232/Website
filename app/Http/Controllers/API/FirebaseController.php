@@ -82,6 +82,7 @@ class FirebaseController extends Controller
             'to' => $user['clientID'],
             'data' => array(
                         'type' => 'user',
+                        'id' => $user['id'],
                         'username' => $username,
                         'message' => $message,
                         'usernameTo' => $usernameTo
