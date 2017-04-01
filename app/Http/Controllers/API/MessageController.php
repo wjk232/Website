@@ -38,8 +38,9 @@ class MessageController extends Controller
    * @param  string  $chatroom 
    * @return \Illuminate\Http\Response
    */
-   public function show($chatroom)
+   public function show($_chatroom)
    {
+        $chatroom = urldecode($_chatroom);
         $user = User::where('username', '=', request()->input('username'))->first();
         $location = explode( ',', $user['location']);
         $city = $location[0];  
