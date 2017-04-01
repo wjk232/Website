@@ -40,7 +40,7 @@ class MessageController extends Controller
    */
    public function show($chatroom)
    {
-        $user = User::where('username', '=', request()->input('username'))->first();
+        $user = User::where('username', '=', base64_decode(request()->input('username')))->first();
         $location = explode( ',', $user['location']);
         $city = $location[0];  
         $state = $location[1];

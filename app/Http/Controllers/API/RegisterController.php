@@ -18,8 +18,10 @@ class RegisterController extends Controller
      * This function creates a new user and redirects them to login. 
      */
     public function register(Request $request){
+        $username = base64_decode($request->input('username'));
+        $password = base64_decode($request->input('password'));
         //Validate input
-        $validation = Validator::make($request->all(),[
+        $validation = Validator::make(['username' => $username, 'password' => $password],[
             'username' =>' required|unique:users', 
             'password' => 'required',
         ]);
@@ -34,8 +36,8 @@ class RegisterController extends Controller
         try{
             $user = User::create([
                 'status' => 'offline',
-                'password'	=> bcrypt($request->input('password')),
-                'username' => $request->input('username'),
+                'password'	=> bcrypt($password),
+                'username' => $username,
                 'profile_pic' => $request->input('profile_pic'),
                 'api_token' => str_random(120),
                 'location' => $request->input('location'),

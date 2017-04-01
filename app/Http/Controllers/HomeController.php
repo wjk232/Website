@@ -92,7 +92,11 @@ class HomeController extends Controller
         $message = '';
         $_locations = explode( ' ', $request->input('location'));
         $address = '';
-
+        //Check for whitespaces in username
+        if(preg_match('/\s/',$username)){
+            Session::flash('message', 'Username must not contian spaces');
+            return Redirect::back()->withInput(); 
+        }
         //Parse location input for json call
         foreach($_locations as $_location){
             $address .= $_location . '+';

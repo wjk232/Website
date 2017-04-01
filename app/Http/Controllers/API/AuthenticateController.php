@@ -14,15 +14,17 @@ class AuthenticateController extends Controller
     * This method returns a token for user to request info
     */
 	public function login(Request $request){
-		if (Auth::attempt($request->only('username', 'password'), true)){
+        $username = base64_decode($request->input('username'));
+        $password = base64_decode($request->input('password'));
+		if (Auth::attempt(['username' => $username, 'password' => $password], true)){
             //Update clientID
-            User::where('username',$request->input('username') )
+            User::where('username','=',$username)
                 ->update(array(
                     'clientID' => $request->input('clientID'),
                     'status' => 'online'
                 ));
 
-            $user = User::where('username', '=', $request->input('username'))->first();
+            $user = User::where('username', '=', $username)->first();
             return response()->json([
                 'code' => 200,
                 'message' => 'You have login successfully.',
@@ -42,7 +44,7 @@ class AuthenticateController extends Controller
     */
 	public function logout(){
         //Update status
-        User::where('username',request()->input('username'))
+        User::where('username',base64_decode(request()->input('username')))
             ->update(array('status' => 'offline'));
 
         return response()->json([

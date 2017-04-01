@@ -18,7 +18,7 @@ class FirebaseController extends Controller
     public function notifyChanges(){
         $url = 'https://fcm.googleapis.com/fcm/send';
         $key = env('FIREBASEKEY');
-        $user = User::where('username', '=', request()->username)->first();
+        $user = User::where('username', '=', base64_decode(request()->username))->first();
         
         $data =  array(
             'to' => '/topics/' . env('BROADCAST'),
@@ -38,7 +38,7 @@ class FirebaseController extends Controller
                 'header'  => $headers,
                 'method'  => 'POST',
                 'content' => json_encode($data)
-         )
+            )
         );
 
         $context  = stream_context_create($options);
@@ -63,9 +63,9 @@ class FirebaseController extends Controller
    public function sendUserMessage(Request $request){
         DB::reconnect();
         $key = env('FIREBASEKEY');
-        $username = $request->input('username');
-        $usernameTo =$request->input('usernameTo');
-        $message = $request->input('message');
+        $username = base64_decode($request->input('username'));
+        $usernameTo = base64_decode($request->input('usernameTo'));
+        $message = base64_decode($request->input('message'));
         $userTo = User::where('username', '=', $usernameTo)->first();
         $user = User::where('username', '=', $username)->first();
         $url = 'https://fcm.googleapis.com/fcm/send';
@@ -127,8 +127,8 @@ class FirebaseController extends Controller
      */
     public function sendChatroomMessage(Request $request){
         $key = env('FIREBASEKEY');
-        $username = $request->input('username');
-        $message = $request->input('message');
+        $username = base64_decode($request->input('username'));
+        $message = base64_decode($request->input('message'));
         $chatroom = $request->input('chatname');
         $location = $request->input('location');
         $url = 'https://fcm.googleapis.com/fcm/send';
