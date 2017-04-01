@@ -141,7 +141,7 @@ class HomeController extends Controller
     }
     /*
     * Returns messages from chatroom 
-    * nearme or region   
+    * nearme(same city) or region(same state)   
     */
     public function messagesForChat($chatname){
         $id = request()->id;

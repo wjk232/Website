@@ -12,37 +12,38 @@
     @section('nav-name')
         <a class="navbar-brand" href="#">ChatoGo</a>
     @stop
-   <div class="container">
-      <div class="container-fluid" >
-         <img width="72" height="72" style="display:block; margin:auto;" src="{{url('/images/ChatoGo-icon.png')}}">
-         <!-- Chat window for messages -->
-         <div class="row" >
-            <div id="showMessages"  class="chat-messages col-sm-12 col-md-12" >
-               <!---Foreach to display messages-->
+    <div class="container">
+        <div class="container-fluid" >
+            <img width="72" height="72" style="display:block; margin:auto;" src="{{url('/images/ChatoGo-icon.png')}}">
+            <!-- Chat window for messages -->
+            <div class="row" >
+                <div id="showMessages"  class="chat-messages col-sm-12 col-md-12" >
+                   <!--- Append messages-->
+                </div>
             </div>
-         </div>
-         <div class="row">
-            @if(Auth::check())
+            <div class="row">
+                @if(Auth::check())
                 <?php $username = Auth::user()->username; ?>
-            <!--- Form to send messages using ajax for not reloading page--->
-            <div class="chat-textbox " align="middle" style="background:#D3D3D3">
-                {{Form::open(['id'=>'formM','action' => 'API\FirebaseController@sendChatroomMessage', 'method' => 'POST'])}}
-               <div class="input-group ">
-                  {{ Form::textarea('message' , null ,[ 'id' => 'output' , 'placeholder' => 'Message....', 'class' => 'form-control input-sm','maxlength' => '160','wrap' => 'hard','rows' => '2', 'required'])}}
-                  {{ Form::hidden('username', Auth::user()->username) }}
-                  {{ Form::hidden('location', Auth::user()->location) }}
-                  {{ Form::hidden('chatname', $chatname) }}
-                    {{Form::hidden('api_token', Auth::user()->api_token)}}
-                  <span class="input-group-btn" >
-                     {{ Form:: submit('Send',['id'=>'sendM','class' => 'btn btn-success button']) }}  
-                  </span>
-               </div>
-               {{Form::close()}}
+                <!--- Form to send messages using ajax for not reloading page--->
+                <div class="chat-textbox " align="middle" style="background:#D3D3D3">
+                    {{Form::open(['id'=>'formM','action' => 'API\FirebaseController@sendChatroomMessage', 'method' => 'POST'])}}
+                    {{ csrf_field() }}
+                    <div class="input-group ">
+                        {{ Form::textarea('message' , null ,[ 'id' => 'output' , 'placeholder' => 'Message....', 'class' => 'form-control input-sm','maxlength' => '160','wrap' => 'hard','rows' => '2', 'required'])}}
+                        {{ Form::hidden('username', Auth::user()->username) }}
+                        {{ Form::hidden('location', Auth::user()->location) }}
+                        {{ Form::hidden('chatname', $chatname) }}
+                        {{Form::hidden('api_token', Auth::user()->api_token)}}
+                      <span class="input-group-btn" >
+                        {{ Form:: submit('Send',['id'=>'sendM','class' => 'btn btn-success button']) }}  
+                      </span>
+                    </div>
+                    {{Form::close()}}
+                </div>
+                @endif
             </div>
-            @endif
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
    
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -66,10 +67,16 @@
           var objDiv = document.getElementById("showMessages");
           objDiv.scrollTop = objDiv.scrollHeight;
         }
+        //Ajax setup
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         //Ajax call for getting new messages
         var refresh = function(){
-         var pathname = window.location.pathname;
-         $.ajax(
+            var pathname = window.location.pathname;
+            $.ajax(
             {
                url : "/messages"+pathname.substr(1)+"?id="+num,
                type: "GET",
