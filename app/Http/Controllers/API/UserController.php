@@ -27,9 +27,8 @@ class UserController extends Controller
     * @param  String  $username
     * @return \Illuminate\Http\Response
     */
-    public function show($_username)
+    public function show($username)
     {
-        $username = base64_decode($_username);
         return response()->json(
             User::where('username','=',$username)
                 ->first()
@@ -43,9 +42,8 @@ class UserController extends Controller
     * @param  String  $username
     * @return \Illuminate\Http\Response
     */
-    public function update(Request $request, $_username)
+    public function update(Request $request, $username)
     {
-        $username = base64_decode($_username);
         //Update user profile
         try{
             User::where('username','=',$username)

@@ -44,7 +44,7 @@ class AuthenticateController extends Controller
     */
 	public function logout(){
         //Update status
-        User::where('username',base64_decode(request()->input('username')))
+        User::where('username',request()->input('username'))
             ->update(array('status' => 'offline'));
 
         return response()->json([

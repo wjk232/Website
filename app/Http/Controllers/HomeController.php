@@ -94,7 +94,7 @@ class HomeController extends Controller
         $address = '';
         //Check for whitespaces in username
         if(preg_match('/\s/',$username)){
-            Session::flash('message', 'Username must not contian spaces');
+            Session::flash('message', 'Username must not contain spaces');
             return Redirect::back()->withInput(); 
         }
         //Parse location input for json call

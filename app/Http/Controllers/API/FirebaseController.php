@@ -18,7 +18,7 @@ class FirebaseController extends Controller
     public function notifyChanges(){
         $url = 'https://fcm.googleapis.com/fcm/send';
         $key = env('FIREBASEKEY');
-        $user = User::where('username', '=', base64_decode(request()->username))->first();
+        $user = User::where('username', '=', request()->username)->first();
         
         $data =  array(
             'to' => '/topics/' . env('BROADCAST'),
