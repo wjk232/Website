@@ -30,7 +30,7 @@
                     {{ csrf_field() }}
                     <div class="input-group ">
                         {{ Form::textarea('message' , null ,[ 'id' => 'output' , 'placeholder' => 'Message....', 'class' => 'form-control input-sm','maxlength' => '160','wrap' => 'hard','rows' => '2', 'required'])}}
-                        {{ Form::hidden('username', Auth::user()->username) }}
+                        {{ Form::hidden('username', base64_encode(Auth::user()->username)) }}
                         {{ Form::hidden('location', Auth::user()->location) }}
                         {{ Form::hidden('chatname', $chatname) }}
                         {{Form::hidden('api_token', Auth::user()->api_token)}}
