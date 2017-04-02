@@ -18,8 +18,8 @@ class RegisterController extends Controller
      * This function creates a new user and redirects them to login. 
      */
     public function register(Request $request){
-        $username = base64_decode($request->input('username'));
-        $password = base64_decode($request->input('password'));
+        $username = $request->input('username');
+        $password = $request->input('password');
         //Validate input
         $validation = Validator::make(['username' => $username, 'password' => $password],[
             'username' =>' required|unique:users', 
