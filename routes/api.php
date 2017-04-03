@@ -19,7 +19,7 @@ Route::post('/register','API\RegisterController@register')->name('register');
 
 Route::get('/PrivacyPolicy', function(){
     $filename = 'PrivacyPolicy.pdf';
-    $path = public_path() . "\images\PrivacyPolicy.pdf" ;
+    $path = public_path() . "/images/PrivacyPolicy.pdf" ;
 
     return Response::make(file_get_contents($path), 200, [
         'Content-Type' => 'application/pdf',
