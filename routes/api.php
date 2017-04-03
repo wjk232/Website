@@ -17,6 +17,15 @@ Route::post('/login','API\AuthenticateController@login')->name('login');
 
 Route::post('/register','API\RegisterController@register')->name('register');
 
+Route::get('/PrivacyPolicy', function(){
+    $filename = 'PrivacyPolicy.pdf';
+    $path = public_path() . "\images\PrivacyPolicy.pdf" ;
+
+    return Response::make(file_get_contents($path), 200, [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => 'inline; filename="'.$filename.'"'
+    ]);
+});
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('users','API\UserController',['only' => [
