@@ -28,14 +28,26 @@
                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                <li data-target="#myCarousel" data-slide-to="1"></li>
                <li data-target="#myCarousel" data-slide-to="2"></li>
+               <li data-target="#myCarousel" data-slide-to="3"></li>
+               <li data-target="#myCarousel" data-slide-to="4"></li>
             </ol>
             <div class="carousel-inner" role="listbox">
-               <div class="item active">
+                <div class="item active">
+                  <div class="container">
+                     <div class="carousel-caption">
+                        <img class="img-circle"  src="{{url('/images/chatogo.png')}}" align="middle">
+                        <h1>ChatoGo</h1>
+                        <p>Android App/Own Project</p>
+                        <p><a class="btn btn-lg btn-primary" href="https://play.google.com/store/apps/details?id=com.cyr.chatogo&hl=en" role="button">Check it out</a></p>
+                     </div>
+                  </div>
+               </div>
+               <div class="item">
                   <div class="container">
                      <div class="carousel-caption">
                         <img class="img-circle"  src="{{url('/images/jumpingtherope.png')}}" align="middle">
-                        <h1>Jumping the rope</h1>
-                        <p>Android app/Own Project</p>
+                        <h1>Jumping The Rope</h1>
+                        <p>Android Game/Own Project</p>
                         <p><a class="btn btn-lg btn-primary" href="https://play.google.com/store/apps/details?id=com.ryc.jumpingtheropegame&hl=en" role="button">Check it out</a></p>
                      </div>
                   </div>
@@ -44,8 +56,8 @@
                   <div class="container">
                   <div class="carousel-caption">
                      <img class="img-circle" src="{{url('/images/shootingplates.png')}}" align="middle">
-                     <h1>Shooting plates</h1>
-                     <p>Android app/Own Project</p>
+                     <h1>Shooting Plates</h1>
+                     <p>Android Game/Own Project</p>
                      <p><a class="btn btn-lg btn-primary" href="https://play.google.com/store/apps/details?id=com.RogeryCecy.Fps&hl=en" role="button">Check it out</a></p>
                   </div>
                   </div>
@@ -53,9 +65,19 @@
                <div class="item">
                   <div class="container">
                      <div class="carousel-caption">
+                        <img class="img-circle"  src="{{url('/images/rycracing.png')}}" align="middle">
+                        <h1>RYC Racing</h1>
+                        <p>Android Game/Own Project</p>
+                        <p><a class="btn btn-lg btn-primary" href="https://play.google.com/store/apps/details?id=com.rycracing.ryc&hl=en" role="button">Check it out</a></p>
+                     </div>
+                  </div>
+               </div>
+               <div class="item">
+                  <div class="container">
+                     <div class="carousel-caption">
                         <img class="img-circle"  src="{{url('/images/lockerapp.png')}}" align="middle">
-                        <h1>Locker app</h1>
-                        <p>Android app/Team Project</p>
+                        <h1>Locker App</h1>
+                        <p>Android App/Team Project</p>
                         <p><a class="btn btn-lg btn-primary" href="https://play.google.com/store/apps/details?id=com.archangel.locker&hl=en" role="button">Check it out</a></p>
                      </div>
                   </div>
