@@ -2,7 +2,8 @@ html, body {
     background-color: #fff;
     color: #636b6f;
     font-family: 'Raleway', sans-serif;
-    /*background-image: url("https://raw.githubusercontent.com/wjk232/Projects-Assignments/master/blue.jpg");*/
+    /*background: rgba(54, 25, 25, 0.0);
+    background-image: url("https://raw.githubusercontent.com/wjk232/Projects-Assignments/master/blue.jpg");*/
 }
 
 /* navbar */
